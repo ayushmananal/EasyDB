@@ -1,0 +1,35 @@
+steps:
+  # Build the container image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/database-querying-backend', '.']
+  
+  # Push to Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/database-querying-backend']
+  
+  # Deploy to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - 'database-querying-backend'
+      - '--image'
+      - 'gcr.io/$PROJECT_ID/database-querying-backend'
+      - '--region'
+      - 'us-central1'
+      - '--platform'
+      - 'managed'
+      - '--allow-unauthenticated'
+      - '--vpc-connector'
+      - 'alloydb-connector'
+      - '--max-instances'
+      - '10'
+      - '--memory'
+      - '512Mi'
+
+images:
+  - 'gcr.io/$PROJECT_ID/database-querying-backend'
+
+options:
+  logging: CLOUD_LOGGING_ONLY

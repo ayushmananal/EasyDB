@@ -1,0 +1,14 @@
+node_modules
+npm-debug.log
+.env
+.env.*
+!.env.example
+.git
+.gitignore
+README.md
+DEPLOY.md
+.DS_Store
+*.log
+
+# Keep package-lock.json for reproducible builds
+!package-lock.json
