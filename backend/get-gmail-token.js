@@ -5,6 +5,10 @@ import http from 'http';
 import url from 'url';
 import open from 'open';
 import readline from 'readline';
+import dotenv from 'dotenv';
+
+// Load environment variables from .env file
+dotenv.config();
 
 const OAuth2 = google.auth.OAuth2;
 

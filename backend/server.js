@@ -1042,7 +1042,7 @@ app.post('/api/fix-recurring-queries', async (req, res) => {
       UPDATE scheduled_queries 
       SET status = 'pending', updated_at = NOW() 
       WHERE frequency IN ('hourly', 'daily', 'monthly') 
-        AND status = 'completed'
+        AND status IN ('completed', 'failed')
       RETURNING id, database_name, frequency;
     `);
     
